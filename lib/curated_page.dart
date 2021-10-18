@@ -217,13 +217,12 @@ class _CuratedPageState extends State<CuratedPage> {
   }
 
   Widget _loading(){
-    return Expanded(
-        child: Container(
+    return Container(
           color: Colors.white,
           child: Center(
             child: CircularProgressIndicator(color: Colors.black,),
           ),
-        ),
+
 
     );
   }
