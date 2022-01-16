@@ -84,9 +84,9 @@ class _FullScreenState extends State<FullScreen> {
     );
   }
 
-  void _loadRewardedAd(){
+  Future<void> _loadRewardedAd()async{
     final adState = Provider.of<AdState>(context, listen: false);
-    RewardedAd.load(
+    await RewardedAd.load(
         adUnitId: adState.rewardedAdUnitId,
         request: AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
@@ -151,8 +151,8 @@ class _FullScreenState extends State<FullScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             ListTile(
-                              onTap: (){
-                                _loadRewardedAd();
+                              onTap: ()async{
+                                await _loadRewardedAd();
 
                                 if(_isRewardedAdReady){
                                   Navigator.pop(context);
@@ -160,6 +160,10 @@ class _FullScreenState extends State<FullScreen> {
                                     print("başarılı");
                                     _download(widget.originalUrl!);
                                   });
+                                }else{
+                                  Navigator.pop(context);
+                                  final snackBar = SnackBar(content: Text("Ads failed to load"));
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                 }
 
                               },
@@ -167,8 +171,8 @@ class _FullScreenState extends State<FullScreen> {
                               leading: Icon(Icons.download, color: Colors.orange,),
                             ),
                             ListTile(
-                              onTap: (){
-                                _loadRewardedAd();
+                              onTap: () async{
+                               await _loadRewardedAd();
 
                                 if(_isRewardedAdReady){
                                   Navigator.pop(context);
@@ -176,6 +180,10 @@ class _FullScreenState extends State<FullScreen> {
                                     print("başarılı");
                                     _download(widget.ultraUrl!);
                                   });
+                                }else{
+                                  Navigator.pop(context);
+                                  final snackBar = SnackBar(content: Text("Ads failed to load"));
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                 }
 
                               },
